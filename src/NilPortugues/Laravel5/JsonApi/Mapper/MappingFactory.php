@@ -37,6 +37,9 @@ class MappingFactory extends \NilPortugues\Api\Mapping\MappingFactory
 
             if (\is_subclass_of($value, Model::class, true)) {
                 $attributes = Schema::getColumnListing($value->getTable());
+                if ($value->appends) {
+                    $attributes = array_merge($attributes, $value->appends);
+                }
 
                 self::$eloquentClasses[$className] = $attributes;
             }
